@@ -1,5 +1,6 @@
 import streamlit as st
 from google import genai
+import PIL.Image
 
 st.set_page_config(
     page_title="Antardrishti AI",
@@ -13,7 +14,7 @@ st.caption("Empowering Inner Reflection, Cognitive Insights & Accessible Intelli
 api_key = st.secrets.get("GEMINI_API_KEY")
 
 if not api_key:
-    st.error("API Key configure nahi hai! Streamlit Cloud Settings > Secrets me GEMINI_API_KEY add karein.")
+    st.error("API Key is not configured. Please add GEMINI_API_KEY to Streamlit Cloud Settings > Secrets.")
     st.stop()
 
 client = genai.Client(api_key=api_key)
@@ -27,14 +28,25 @@ mode = st.radio(
 if mode == "🧘 Empathetic Mood Reflection":
     st.subheader("Personal Reflective Journal")
     mood = st.selectbox(
-        "Aap kaisa feel kar rahe hain? (Select Current Mood):",
-        ["Calm / Shanti", "Overwhelmed / Pareshan", "Thoughtful / Chintan", "Energetic / Utsahi", "Anxious / Bechain", "Grateful / Aabhari"]
+        "How are you feeling right now? (Select Current Mood):",
+        [
+            "Calm / Peaceful",
+            "Overwhelmed / Stressed",
+            "Thoughtful / Contemplative",
+            "Energetic / Motivated",
+            "Anxious / Uncertain",
+            "Grateful / Content"
+        ]
     )
-    reflection_text = st.text_area("Apne vichar ya journal entry yahan likhiye:", placeholder="Aaj kaisa raha din? Kya chal raha hai dimag mein...")
-    
+    reflection_text = st.text_area(
+        "Write your reflections or journal entry below:",
+        placeholder="How was your day? What thoughts or feelings are occupying your mind right now?",
+        height=150
+    )
+
     if st.button("Generate Empathetic Insight", type="primary"):
         if not reflection_text.strip():
-            st.warning("Kripya apni reflection likhiye.")
+            st.warning("Please enter your reflections before generating insights.")
         else:
             with st.spinner("Reflecting deeply with empathy..."):
                 try:
@@ -56,11 +68,15 @@ if mode == "🧘 Empathetic Mood Reflection":
 
 elif mode == "📝 Text & Reasoning Analysis":
     st.subheader("Cognitive Reasoning & Inquiry")
-    user_prompt = st.text_area("Enter context, inquiry, or document summary:", placeholder="Type here...")
-    
+    user_prompt = st.text_area(
+        "Enter context, inquiry, or document summary:",
+        placeholder="Type your question or text here...",
+        height=150
+    )
+
     if st.button("Generate Insight", type="primary"):
         if not user_prompt.strip():
-            st.warning("Kripya input provide karein.")
+            st.warning("Please provide input text to analyze.")
         else:
             with st.spinner("Analyzing with Gemini..."):
                 try:
@@ -77,15 +93,17 @@ elif mode == "📝 Text & Reasoning Analysis":
 elif mode == "🖼️ Multimodal / Image Insight":
     st.subheader("Multimodal Perception")
     uploaded_file = st.file_uploader("Upload an image for analysis:", type=["jpg", "jpeg", "png"])
-    image_prompt = st.text_input("Prompt for image:", value="Analyze this image and describe its key elements clearly.")
-    
+    image_prompt = st.text_input(
+        "Prompt for image:",
+        value="Analyze this image and describe its key elements clearly."
+    )
+
     if uploaded_file and st.button("Analyze Image", type="primary"):
         with st.spinner("Processing visual data..."):
             try:
-                import PIL.Image
                 img = PIL.Image.open(uploaded_file)
                 st.image(img, caption="Uploaded Image", use_container_width=True)
-                
+
                 response = client.models.generate_content(
                     model="gemini-3.6-flash",
                     contents=[img, image_prompt]
@@ -95,6 +113,4 @@ elif mode == "🖼️ Multimodal / Image Insight":
                 st.write(response.text)
             except Exception as e:
                 st.error(f"Error: {e}")
-
-
-
+                    
