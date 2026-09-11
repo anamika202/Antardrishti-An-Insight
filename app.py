@@ -96,3 +96,4 @@ elif mode == "🖼️ Multimodal / Image Insight":
             except Exception as e:
                 st.error(f"Error: {e}")
 
+
