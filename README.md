@@ -36,3 +36,16 @@ Antardrishti (अन्तर्दृष्टि - "Inner Vision") is an empat
    git clone [https://github.com/anamika202/Antardrishti-An-Insight.git](https://github.com/anamika202/Antardrishti-An-Insight.git)
    cd Antardrishti-An-Insight
 
+2. **Install dependencies :**
+   pip install -r requirements.txt
+
+3. **Configure Secretes :**
+     GEMINI_API_KEY = "your_google_gemini_API_key-here" 
+
+4. **Run the Application:**
+     streamlit run app.py
+
+
+Built with clarity and purpose for the APAC Builder challenge.
+
+
