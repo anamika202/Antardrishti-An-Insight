@@ -141,11 +141,12 @@ with st.sidebar:
         if not api_key:
             st.warning("⚠️ Please provide an API key to proceed.")
 
+    # Target model set to Gemini 3.6 Flash as verified by API response
     model_choice = st.selectbox(
         "Active Gemini Model",
-        options=["gemini-2.5-flash", "gemini-2.5-pro"],
+        options=["gemini-3.6-flash", "gemini-3.6-pro"],
         index=0,
-        help="Gemini 2.5 Flash is recommended for real-time multimodal latency."
+        help="Gemini 3.6 Flash provides ultra-fast reasoning and native multimodal capabilities."
     )
 
     st.markdown("---")
@@ -154,7 +155,7 @@ with st.sidebar:
     **Track:** #MeetTheBuilders  
     **Program:** Google Cloud Gen AI Academy APAC  
     **Lead:** Anamika Dubey  
-    **Version:** 1.2 (Multimodal Fix)
+    **Engine:** Gemini 3.6 Flash
     """)
     st.info("Dual-Core Architecture: Empathetic High-EQ reflection paired with high-velocity Gemini reasoning.")
 
@@ -291,7 +292,7 @@ with tab2:
                     st.error(f"Error during cognitive synthesis: {err}")
 
 # ---------------------------------------------------------
-# TAB 3: MULTIMODAL VISUAL INSIGHT (GALLERY + CAMERA FIX)
+# TAB 3: MULTIMODAL VISUAL INSIGHT (GALLERY + DRIVE + CAMERA)
 # ---------------------------------------------------------
 with tab3:
     st.markdown("### Feature 3: Multimodal Cognitive Perception")
@@ -316,7 +317,7 @@ with tab3:
             with col_img:
                 st.image(pil_img, caption="Processed Image Preview", use_container_width=True)
             with col_act:
-                st.info("✅ Image successfully standardized: RGB format verified, orientation aligned, and memory optimized.")
+                st.info("✅ Image standardized: RGB normalized, EXIF aligned, and memory optimized for Gemini.")
                 trigger_multimodal = st.button("Generate Multimodal Reflection", key="btn_multimodal")
 
             if trigger_multimodal:
@@ -358,7 +359,7 @@ with tab4:
     with col_t1:
         st.markdown("""
         <div class="feature-card">
-            <h4>🧠 Gemini 2.5 Flash</h4>
+            <h4>🧠 Gemini 3.6 Flash</h4>
             <p style="color:#94a3b8; font-size:0.95rem;">
                 Provides sub-second token delivery and native multimodal image understanding.
             </p>
@@ -387,5 +388,5 @@ with tab4:
     st.markdown("""
     **Project Submission:** Google Cloud Gen AI Academy APAC — Cohort 3  
     **Theme:** Human-Centered Well-Being via Multimodal AI  
-    **Repository:** [github.com/anamika202/Antardrishti](https://github.com/anamika202/Antardrishti)
+    **Repository:** [github.com/anamika202/Antardrishti-An-Insight](https://github.com/anamika202/Antardrishti-An-Insight)
     """)
